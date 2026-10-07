@@ -1,0 +1,11 @@
+[versions]
+groovy = "4.0.33"
+maven-publish = "0.35.0"
+spock-core = "2.4-groovy-4.0"
+
+[plugins]
+maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
+
+[libraries]
+groovy = { module = "org.apache.groovy:groovy", version.ref = "groovy" }
+spock-core = { module = "org.spockframework:spock-core", version.ref = "spock-core" }
