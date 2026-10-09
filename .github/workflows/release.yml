@@ -10,12 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read
+      contents: write
 
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Checkout Code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+      - name: Setup Java
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           distribution: temurin
           java-version: 21
@@ -28,4 +30,16 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGINMEMORYKEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGINMEMORYKEYPASSWORD }}
 
-        run: ./gradlew publishAndReleaseToMavenCentral
+        run: ./gradlew publishToMavenCentralPortal
+
+      - name: Post Approval Link Comment
+        if: success()
+        uses: peter-evans/commit-comment@f6d60c65d05bb59f750fa51ad3de1d443ba0eb52 # v4.0.0
+        with:
+          body: |
+            ### 🚀 Maven Central Staging Upload Complete
+
+            The artifacts for **${{ github.event.repository.name }}** have been uploaded and validated. The release is currently pending manual approval.
+
+            Please log in, review your component files, and select **Publish** or **Drop**:
+            * **🔗 Direct Review Link:** [Open Maven Central Portal](https://central.sonatype.com/publishing/deployments)

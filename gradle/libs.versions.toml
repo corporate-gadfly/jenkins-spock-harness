@@ -1,10 +1,12 @@
 [versions]
 groovy = "4.0.33"
-maven-publish = "0.35.0"
+maven-publish = "0.37.0"
+axion-release = "1.21.4"
 spock-core = "2.4-groovy-4.0"
 
 [plugins]
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
+axion-release = { id = "pl.allegro.tech.build.axion-release", version.ref = "axion-release" }
 
 [libraries]
 groovy = { module = "org.apache.groovy:groovy", version.ref = "groovy" }

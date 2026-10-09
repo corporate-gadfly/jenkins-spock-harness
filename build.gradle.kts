@@ -1,3 +1,5 @@
+import com.vanniktech.maven.publish.DeploymentValidation
+
 plugins {
     // Apply the groovy plugin to add support for Groovy
     groovy
@@ -5,14 +7,29 @@ plugins {
     `java-library`
     // Apply the Maven Publish plugin to publish artifacts to Maven Central
     alias(libs.plugins.maven.publish)
+    // Apply the Axion Release plugin for versioning and release management
+    alias(libs.plugins.axion.release)
 }
 
 group = "io.github.corporate-gadfly"
-version = "0.1.0"
+project.version = scmVersion.version
 
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+scmVersion {
+    tag {
+        prefix.set("v")
+    }
+    checks {
+        uncommittedChanges.set(true)
+    }
+    // Ensures stateless CI runs only forward tag updates cleanly
+    repository {
+        pushTagsOnly.set(true)
     }
 }
 
@@ -43,6 +60,10 @@ tasks.withType<Test>().configureEach {
 
 mavenPublishing {
     coordinates(project.group.toString(), project.name, project.version.toString())
+
+    // Instead of automatic releases, allow Drop / Publish button to show up in Maven Central UI
+    publishToMavenCentral(automaticRelease = false, validateDeployment = DeploymentValidation.VALIDATED)
+    signAllPublications()
 
     pom {
         name = "Jenkins Spock Testing Harness"

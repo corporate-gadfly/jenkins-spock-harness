@@ -1,0 +1,41 @@
+name: Trigger Gradle Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      increment:
+        description: 'Type of version bump (patch, minor, major)'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  release-trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          # Use your custom PAT instead of GITHUB_TOKEN so the pushed tag triggers the next job
+          token: ${{ secrets.GIT_RELEASE_TOKEN }}
+
+      - name: Setup Java
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: 'temurin'
+          java-version: 21
+
+      - name: Configure Git Author
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run Gradle Axion Release Task
+        run: |
+          # Tells Axion to increment the selected type, tag it, and push it up
+          ./gradlew release -Prelease.incrementer=${{ github.event.inputs.increment }}
