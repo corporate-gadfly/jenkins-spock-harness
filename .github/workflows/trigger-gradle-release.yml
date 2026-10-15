@@ -13,6 +13,9 @@ on:
           - minor
           - major
 
+permissions:
+  contents: read
+
 jobs:
   release-trigger:
     runs-on: ubuntu-latest
