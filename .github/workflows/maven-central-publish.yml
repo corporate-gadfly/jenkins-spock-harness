@@ -33,7 +33,7 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGINMEMORYKEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGINMEMORYKEYPASSWORD }}
 
-        run: ./gradlew publishToMavenCentralPortal
+        run: ./gradlew publishToMavenCentral
 
       - name: Post Approval Link Comment
         if: success()
