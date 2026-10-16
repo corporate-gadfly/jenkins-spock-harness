@@ -425,11 +425,56 @@ When loaded with `loadPipelineScriptForTest(...)`, the returned pipeline instanc
 
 ### Simulating Failures & Exceptions
 
-Test error handling, `catchError`, or notification blocks by throwing an exception from a mock:
+#### 1. Jenkins `error` Step
+The harness natively emulates the Jenkins `error` step by throwing a `RuntimeException` with the specified error message:
 
 ```groovy
-getPipelineMock("sh")("docker push my-image") >> {
-    throw new RuntimeException("Registry connection timed out")
+// In pipeline script:
+// error("Deployment failed")
+
+when:
+pipeline()
+
+then:
+def ex = thrown(RuntimeException)
+ex.message == "Deployment failed"
+```
+
+#### 2. Simulating Failed Steps with a Trait (`WithFailedStep`)
+You can simulate pipeline step failures (e.g. `sh`, `bat`, or custom library calls) by stubbing a mock invocation to throw an exception or using a helper trait:
+
+```groovy
+// Trait definition:
+trait WithFailedStep {
+    Closure failStep(String message) {
+        throw new StepFailedException(message)
+    }
+
+    static class StepFailedException extends RuntimeException {
+        StepFailedException(String message) { super(message) }
+    }
+}
+```
+
+```groovy
+// In Spock specification implementing WithFailedStep:
+class MyPipelineSpec extends JenkinsPipelineSpecification implements WithFailedStep {
+
+    def "handles step failure and sends alert"() {
+        given: "Stub a step to fail"
+        getPipelineMock("sh")("mvn clean test") >> { failStep("Unit tests failed") }
+
+        when:
+        pipeline()
+
+        then:
+        def ex = thrown(StepFailedException)
+        ex.message == "Unit tests failed"
+
+        and: "Downstream error notifications or rollback steps are triggered"
+        1 * getPipelineMock("slackSend")([color: 'error', message: _])
+        0 * getPipelineMock("sh")("docker push my-image")
+    }
 }
 ```
 
