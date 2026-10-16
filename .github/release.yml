@@ -1,0 +1,28 @@
+changelog:
+  categories:
+    - title: "🚀 New Features"
+      labels:
+        - "feature"
+
+    - title: "⚙️ Enhancements"
+      labels:
+        - "enhancement"
+        - "improvement"
+        - "performance"
+
+    - title: "🐛 Bug Fixes"
+      labels:
+        - "bug"
+        - "fix"
+    - title: "🔄 Other Changes"
+      labels:
+        - "*"
+
+  exclude:
+    labels:
+      - "duplicate"
+      - "wontfix"
+      - "invalid"
+      - "chore"
+    authors:
+      - "dependabot[bot]"
