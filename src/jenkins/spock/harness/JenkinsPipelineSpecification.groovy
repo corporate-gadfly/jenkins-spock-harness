@@ -215,12 +215,16 @@ abstract class JenkinsPipelineSpecification extends Specification {
      * variable impersonator or a regular pipeline step mock.
      */
     protected Object dispatchPipelineMethod(String name, Object args) {
+        Object[] normalizedArgs = normalizeStepArgs(args)
+
+        if (name == 'error') {
+            String message = normalizedArgs ? normalizedArgs[0]?.toString() : 'Pipeline error'
+            throw new RuntimeException(message)
+        }
         if (isVariableName(name)) {
-            Object[] normalizedArgs = normalizeArgs(args)
             return invokeCallable(explicitlyMockPipelineVariable(name), normalizedArgs)
         }
 
-        Object[] normalizedArgs = normalizeStepArgs(args)
         PipelineCallable mock = (PipelineCallable) getPipelineMock(name)
         Object result = invokeCallable(mock, normalizedArgs)
         executeStepBodies(name, normalizedArgs)
