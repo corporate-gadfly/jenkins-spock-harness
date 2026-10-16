@@ -1,6 +1,6 @@
-import jenkins.spock.harness.JenkinsPipelineSpecification
+package jenkins.spock.harness
 
-class JenkinsPipelineSpecificationTest extends JenkinsPipelineSpecification {
+class JenkinsPipelineSpecificationSpec extends JenkinsPipelineSpecification {
     def "should execute a closure passed as the final step argument"() {
         given:
         boolean executed = false
