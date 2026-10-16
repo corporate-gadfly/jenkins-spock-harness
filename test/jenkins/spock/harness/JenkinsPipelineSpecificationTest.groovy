@@ -89,6 +89,32 @@ class JenkinsPipelineSpecificationTest extends JenkinsPipelineSpecification {
         exception.message == 'Script \'/missing-pipeline-script.groovy\' not found in paths: [vars]'
     }
 
+    def "should emulate Jenkins error step semantics"() {
+        when:
+        error("boom")
+
+        then:
+        def ex = thrown(RuntimeException)
+        ex.message == 'boom'
+    }
+
+    def "should expose error step through pipeline mock registry"() {
+        when:
+        getPipelineMock('error').call("boom")
+
+        then:
+        noExceptionThrown()
+    }
+
+    def "should dispatch error step through pipeline infrastructure"() {
+        when:
+        dispatchPipelineMethod('error', ['boom'])
+
+        then:
+        def ex = thrown(RuntimeException)
+        ex.message == 'boom'
+    }
+
     def "should dispatch a pipeline step with eight arguments"() {
         when:
         eightArgumentStep(1, 2, 3, 4, 5, 6, 7, 8)
