@@ -1,16 +1,19 @@
 name: Publish to Maven Central
 
 on:
-  release:
+  workflow_run:
+    workflows:
+      - "Create GitHub Release on Tag Push" # exact name of the workflow that creates the GitHub release
     types:
-      - published
+      - completed
+
+permissions:
+  contents: write
 
 jobs:
   publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
 
     steps:
       - name: Checkout Code
