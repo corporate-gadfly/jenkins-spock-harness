@@ -2,7 +2,7 @@
 groovy = "4.0.33"
 maven-publish = "0.37.0"
 axion-release = "1.21.4"
-spock-core = "2.4-groovy-4.0"
+spock-core = "2.5-groovy-4.0"
 
 [plugins]
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
