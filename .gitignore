@@ -2,3 +2,7 @@
 /.java-version
 /.gradle/
 /build/
+/sample-consumer-project/.idea/
+/sample-consumer-project/.gradle/
+/sample-consumer-project/.java-version
+/sample-consumer-project/build/
