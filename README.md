@@ -70,7 +70,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation("io.github.corporate-gadfly:jenkins-spock-harness:0.1.0")
+    testImplementation("io.github.corporate-gadfly:jenkins-spock-harness:0.1.1")
     testImplementation("org.spockframework:spock-core:2.4-groovy-4.0")
     testImplementation("org.apache.groovy:groovy:4.0.33")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
@@ -89,7 +89,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'io.github.corporate-gadfly:jenkins-spock-harness:0.1.0'
+    testImplementation 'io.github.corporate-gadfly:jenkins-spock-harness:0.1.1'
     testImplementation 'org.spockframework:spock-core:2.4-groovy-4.0'
     testImplementation 'org.apache.groovy:groovy:4.0.33'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -106,7 +106,7 @@ test {
 <dependency>
     <groupId>io.github.corporate-gadfly</groupId>
     <artifactId>jenkins-spock-harness</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <scope>test</scope>
 </dependency>
 <dependency>
