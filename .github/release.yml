@@ -1,11 +1,8 @@
 changelog:
   categories:
-    - title: "🚀 New Features"
+    - title: "🚀 New Features/Enhancements"
       labels:
         - "feature"
-
-    - title: "⚙️ Enhancements"
-      labels:
         - "enhancement"
         - "improvement"
         - "performance"
@@ -18,6 +15,10 @@ changelog:
     - title: "📦 Dependencies"
       labels:
         - "dependencies"
+
+    - title: "📖 Documentation"
+      labels:
+        - "documentation"
 
     - title: "🔄 Other Changes"
       labels:
