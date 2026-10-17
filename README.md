@@ -71,8 +71,7 @@ repositories {
 
 dependencies {
     testImplementation("io.github.corporate-gadfly:jenkins-spock-harness:0.1.1")
-    testImplementation("org.spockframework:spock-core:2.4-groovy-4.0")
-    testImplementation("org.apache.groovy:groovy:4.0.33")
+    // testImplementation("org.apache.groovy:groovy:4.0.33") // Uncomment if src/ tree is populated with Groovy classes
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -90,31 +89,13 @@ repositories {
 
 dependencies {
     testImplementation 'io.github.corporate-gadfly:jenkins-spock-harness:0.1.1'
-    testImplementation 'org.spockframework:spock-core:2.4-groovy-4.0'
-    testImplementation 'org.apache.groovy:groovy:4.0.33'
+    // testImplementation 'org.apache.groovy:groovy:4.0.33' // Uncomment if src/ tree is populated with Groovy classes
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 test {
     useJUnitPlatform()
 }
-```
-
-### Maven
-
-```xml
-<dependency>
-    <groupId>io.github.corporate-gadfly</groupId>
-    <artifactId>jenkins-spock-harness</artifactId>
-    <version>0.1.1</version>
-    <scope>test</scope>
-</dependency>
-<dependency>
-    <groupId>org.spockframework</groupId>
-    <artifactId>spock-core</artifactId>
-    <version>2.4-groovy-4.0</version>
-    <scope>test</scope>
-</dependency>
 ```
 
 ---
