@@ -33,15 +33,6 @@ scmVersion {
     }
 }
 
-sourceSets {
-    main {
-        groovy.srcDirs("src")
-    }
-    test {
-        groovy.srcDirs("test")
-    }
-}
-
 repositories {
     mavenCentral()
 }
@@ -50,8 +41,7 @@ dependencies {
     implementation(libs.groovy)
 
     api(libs.spock.core)
-
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    api("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.withType<Test>().configureEach {

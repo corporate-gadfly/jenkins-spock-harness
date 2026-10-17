@@ -59,20 +59,26 @@ Unit testing Jenkins Shared Libraries often poses challenges due to dynamic runt
 ## Prerequisites & Installation
 
 - **JDK:** 21 or higher
-- **Groovy:** 4.0+
-- **Spock:** 2.4+ (Groovy 4 variant)
 
 ### Gradle (Kotlin DSL)
 
 ```kotlin
+plugins {
+    groovy
+}
+
 repositories {
     mavenCentral()
 }
 
+sourceSets {
+    main { groovy.srcDirs("src") }
+    test { groovy.srcDirs("test") }
+}
+
 dependencies {
-    testImplementation("io.github.corporate-gadfly:jenkins-spock-harness:0.1.1")
-    // testImplementation("org.apache.groovy:groovy:4.0.33") // Uncomment if src/ tree is populated with Groovy classes
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    // implementation(libs.groovy)               // Uncomment if src/ tree is populated with Groovy classes
+    testImplementation(libs.jenkins.spock.harness)
 }
 
 tasks.test {
@@ -83,19 +89,39 @@ tasks.test {
 ### Gradle (Groovy DSL)
 
 ```groovy
+plugins {
+    id 'groovy'
+}
+
 repositories {
     mavenCentral()
 }
 
+sourceSets {
+    main { groovy { srcDirs = ['src'] } }
+    test { groovy { srcDirs = ['test'] } }
+}
+
 dependencies {
-    testImplementation 'io.github.corporate-gadfly:jenkins-spock-harness:0.1.1'
-    // testImplementation 'org.apache.groovy:groovy:4.0.33' // Uncomment if src/ tree is populated with Groovy classes
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // implementation libs.groovy               // Uncomment if src/ tree is populated with Groovy classes
+    testImplementation libs.jenkins.spock.harness
 }
 
 test {
     useJUnitPlatform()
 }
+```
+
+### With gradle/libs.versions.toml
+
+```toml
+[versions]
+jenkins-spock-harness = "0.1.1"
+groovy = "4.0.33"
+
+[libraries]
+jenkins-spock-harness = { module = "io.github.corporate-gadfly:jenkins-spock-harness", version.ref = "jenkins-spock-harness" }
+groovy = { module = "org.apache.groovy:groovy", version.ref = "groovy" }
 ```
 
 ---
@@ -440,7 +466,7 @@ trait WithFailedStep {
 
 ```groovy
 // In Spock specification implementing WithFailedStep:
-class MyPipelineSpec extends JenkinsPipelineSpecification implements WithFailedStep {
+class HelloSpec extends JenkinsPipelineSpecification implements WithFailedStep {
 
     def "handles step failure and sends alert"() {
         given: "Stub a step to fail"
