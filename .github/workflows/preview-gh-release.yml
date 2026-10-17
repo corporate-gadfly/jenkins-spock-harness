@@ -1,0 +1,26 @@
+name: Preview Release Notes (Draft)
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'The tag you want to preview (e.g., v0.1.2)'
+        required: true
+        type: string
+
+jobs:
+  preview-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Create Draft Release Preview
+        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
+        with:
+          tag_name: ${{ inputs.tag_name }}
+          name: Release ${{ inputs.tag_name }}
+          draft: true
+          generate_release_notes: true
