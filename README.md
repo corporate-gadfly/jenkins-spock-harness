@@ -121,16 +121,17 @@ test {
 
 ## Directory Structure
 
-A consumer project using this library in Gradle or Maven typically follows the standard source tree hierarchy:
+A consumer project using this library in Gradle or Maven typically follows the standard source tree hierarchy for a Jenkins Shared Library:
 
 ```text
-├── src/
-│   ├── main/groovy/                   # Companion Groovy/Java classes (optional)
-│   └── test/groovy/                   # Spock test specifications
-│       └── com/example/
-│           └── HelloSpec.groovy
+├── src/                               # Companion Groovy/Java classes (optional)
+│   └── com/example/
+│       └── Companion.groovy           # for com.example.Companion class
+├── test/                              # Spock test specifications
+│   └── HelloSpec.groovy               # for testing vars/hello.groovy
 ├── vars/                              # Jenkins global step scripts
-│   └── hello.groovy
+│   ├── hello.groovy                   # for global 'hello' variable
+│   └── hello.txt                      # help for 'hello' variable
 └── build.gradle.kts                   # Or build.gradle / pom.xml
 ```
 
