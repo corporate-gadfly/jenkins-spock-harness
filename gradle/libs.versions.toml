@@ -1,13 +1,15 @@
 [versions]
-groovy = "4.0.33"
-maven-publish = "0.37.0"
 axion-release = "1.21.4"
+groovy = "4.0.33"
+junit-platform-launcher = "1.14.4"
+maven-publish = "0.37.0"
 spock-core = "2.5-groovy-4.0"
 
 [plugins]
-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
 axion-release = { id = "pl.allegro.tech.build.axion-release", version.ref = "axion-release" }
+maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
 
 [libraries]
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-platform-launcher" }
 groovy = { module = "org.apache.groovy:groovy", version.ref = "groovy" }
 spock-core = { module = "org.spockframework:spock-core", version.ref = "spock-core" }

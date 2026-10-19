@@ -41,7 +41,7 @@ dependencies {
     implementation(libs.groovy)
 
     api(libs.spock.core)
-    api("org.junit.platform:junit-platform-launcher")
+    api(libs.junit.platform.launcher)
 }
 
 tasks.withType<Test>().configureEach {
