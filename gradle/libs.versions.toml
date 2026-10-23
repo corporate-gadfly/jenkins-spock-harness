@@ -1,7 +1,7 @@
 [versions]
 axion-release = "1.21.4"
 groovy = "4.0.33"
-junit-platform-launcher = "1.14.4"
+junit-platform-launcher = "6.1.3"
 maven-publish = "0.37.0"
 spock-core = "2.5-groovy-4.0"
 
