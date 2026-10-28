@@ -30,5 +30,3 @@ changelog:
       - "wontfix"
       - "invalid"
       - "chore"
-    authors:
-      - "dependabot[bot]"
